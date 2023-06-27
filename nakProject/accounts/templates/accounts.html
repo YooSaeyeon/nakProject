@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% load static %}
+{% block title %}
+<title>account</title>
+<!--스터디에서 signup.html이 여기선 accounts.html-->
+{% endblock %}
+{% block content %}
+<!-- Page Content-->
+<section class="py-5">
+    <div class="container px-5 my-5">
+        <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+            {% if user.is_authenticated %}
+            <div class="mb-5 text-center">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div>
+                <h1 class="fw-bolder">{{ user.username }}님</h1>
+                <p class="lead fw-normal text-muted mb-0"><a href="{% url 'logout' %}">로그아웃</a></p>
+            </div>
+            {% else %}
+            <h1 class="text-center">로그인</h1>
+            <a href="{% provider_login_url 'google' %}">
+                <i>구글 로그인</i>
+            </a>
+            <br>
+            <a href="{% provider_login_url 'naver' %}">
+                <i>네이버 로그인</i>
+            </a>
+            <br>
+            <form class="user" method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div>
+                    <div class="text-center">
+                        <input type="text" id="username" name="username" placeholder="아이디를 입력해주세요.">
+                    </div>
+                    <div class="text-center">
+                        <input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요.">
+                    </div>
+                </div>
+                <br>
+                <div class="text-center">
+                <input type="submit" value="로그인">
+                </div>
+            </form>
+
+            <br><br>
+            <hr>
+            <h1 class="text-center">회원가입</h1>
+            <br>
+            <form class="user" method="POST" action="{% url 'accounts' %}">
+                {% csrf_token %}
+                <div class="text-center">
+                    <input type="text" name="username" placeholder="Enter Your ID">
+                </div>
+                <div class="text-center">
+                    <div class="text-center">
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                    <div class="text-center">
+                        <input type="password" name="repeat" placeholder="Repeat Password">
+                    </div>
+                </div>
+                <br>
+                <div class="text-center">
+                <input type="submit" value="가입하기">
+                </div>
+            </form>
+            {% endif %}
+            <br>
+            <div class="row gx-5 row-cols-2 row-cols-lg-4 py-5">
+            <div>
+        </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

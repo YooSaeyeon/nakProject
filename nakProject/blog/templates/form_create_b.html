@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>blog</title>
+{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container px-5">
+        <div class="boxCenter bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+            <div class="mb-5">
+                <h1 class="fw-bolder">blog 작성</h1>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <table>
+                    {{ form.as_table }}
+                </table>
+                <input type="submit" value="SUBMIT" />
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

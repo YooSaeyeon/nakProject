@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>notice</title>
+{% endblock %} {% block content %}
+<!-- Page Content-->
+<section class="py-5">
+  <div class="container px-5 my-5">
+    <div class="row gx-5">
+      <div class="col-lg-3">
+        <div class="d-flex align-items-center mt-lg-5 mb-4">
+          <img
+            class="img-fluid rounded-circle"
+            src="/static/image/notice.png"
+            alt="..."
+          />
+          <div class="ms-3">
+            <div class="fw-bold">notice</div>
+            <div class="text-muted">공지</div>
+          </div>
+        </div>
+      </div>
+      <a href="{% url 'create_n' %}" class="linkNo">글쓰기</a>
+      <br /><br />
+      {% for noticePost in posts %}
+      <h5>
+        <a href="{% url 'post_detail_n' noticePost.id %}" class="linkNo linkNo2"
+          >{{noticePost.title}}</a
+        >
+      </h5>
+      <h6>작성자: {{noticePost.author}}</h6>
+      <p>{{noticePost.body}}</p>
+      <hr />
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

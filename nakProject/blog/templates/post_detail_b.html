@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>blog</title>
+{% endblock %} {% block content %}
+<section class="py-5">
+  <div class="container px-5">
+    <div class="boxCenter bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+      <div class="mb-5">
+        <body>
+          <h2>제목: {{blogPost.title}}</h2>
+          <h4>작성 시간: {{blogPost.created_at}}</h4>
+          <h6>작성자: {{ blogPost.author }}</h6>
+          <hr />
+          {% if blogPost.photo %}
+          <img src="{{ blogPost.photo.url }}" alt="" height="300" />
+          {% endif %}
+          <p>{{blogPost.body}}</p>
+          {% if request.user == blogPost.author %}
+          <hr />
+          <a href="{% url 'post_update_b' blogPost.id %}" class="linkNo2"
+            >수정</a
+          >
+          <a href="{% url 'post_delete_b' blogPost.id %}" class="linkNo2"
+            >삭제</a
+          >
+          <br /><br />
+          {% endif %}
+          <hr />
+          <h4>댓글</h4>
+          {% if user.is_authenticated %}
+          <form method="POST" action="{% url 'create_comment_b' blogPost.id %}">
+            {% csrf_token %} {{ comment_form }}
+            <input type="submit" />
+          </form>
+          {% else %} 로그인 후 사용해주세요! {% endif %}
+          <hr />
+          {% for comment in blogPost.blogcomment_set.all %}
+          <p>작성자: {{ comment.author }}</p>
+          <p>{{ comment }}</p>
+          {% if request.user == comment.author %}
+          <a href="{% url 'update_comment_b' blogPost.id comment.id %}">수정</a>
+          <a href="{% url 'delete_comment_b' blogPost.id comment.id %}">삭제</a>
+          {% endif %}
+          <hr />
+          {% endfor %}
+        </body>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

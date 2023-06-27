@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>notice</title>
+{% endblock %} {% block content %}
+<section class="py-5">
+  <div class="container px-5">
+    <div class="boxCenter bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+      <div class="mb-5">
+        <body>
+          <h2>제목: {{noticePost.title}}</h2>
+          <h4>작성 시간: {{noticePost.created_at}}</h4>
+          <h6>작성자 : {{ noticePost.author }}</h6>
+          <hr />
+          <p>{{noticePost.body}}</p>
+          {% if request.user == noticePost.author %}
+          <hr />
+          <a href="{% url 'post_update_n' noticePost.id %}" class="linkNo2"
+            >수정</a
+          >
+          <a href="{% url 'post_delete_n' noticePost.id %}" class="linkNo2"
+            >삭제</a
+          >
+          {% endif %}
+        </body>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

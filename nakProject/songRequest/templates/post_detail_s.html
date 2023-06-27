@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>songRequestForm</title>
+{% endblock %} {% block content %}
+<section class="py-5">
+  <div class="container px-5">
+    <div class="boxCenter bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+      <div class="mb-5">
+        <body>
+          <h2>제목: {{sPost.title}}</h2>
+          <p>작성 시간: {{sPost.created_at}}</p>
+          <hr />
+          <p>{{sPost.singer}}</p>
+          {% if request.user == sPost.author %}
+          <hr />
+          <a href="{% url 'post_update_s' sPost.id %}" class="linkNo2">수정</a>
+          <a href="{% url 'post_delete_s' sPost.id %}" class="linkNo2">삭제</a>
+          {% endif %}
+        </body>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block content %}
+<section class="py-5">
+  <div class="boxCenter container px-5">
+    <!-- Contact form-->
+    <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+      <div class="mb-5">
+        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
+          <i class="bi bi-envelope"></i>
+        </div>
+        <h1 class="fw-bolder">지원하기</h1>
+        <p class="lead fw-normal text-muted mb-0">
+          여러분의 합격을 응원합니다.
+        </p>
+      </div>
+      <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+          {{ form.as_table }}
+          <!-- 세번째 인자로 넘겨준 데이터 -->
+          <!-- .as_p 는 p 태그가 감싸진 것처럼 해줌 / .as_ul은 ul 태그가 감싸진 것처럼 보임 -->
+        </table>
+        <input type="submit" value="SUBMIT" />
+      </form>
+    </div>
+    <!-- Contact cards-->
+    <div class="row gx-5 row-cols-2 row-cols-lg-4 py-5"></div>
+  </div>
+</section>
+{% endblock %}

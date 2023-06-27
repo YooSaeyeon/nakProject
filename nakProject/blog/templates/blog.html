@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>blog</title>
+{% endblock %} {% block content %}
+<section class="py-5">
+  <div class="container px-5 my-5">
+    <div class="row gx-5">
+      <div class="col-lg-3">
+        <div class="d-flex align-items-center mt-lg-5 mb-4">
+          <img
+            class="img-fluid rounded-circle"
+            src="/static/image/blog.png"
+            alt="..."
+          />
+          <div class="ms-3">
+            <div class="fw-bold">blog</div>
+            <div class="text-muted">포스팅</div>
+          </div>
+        </div>
+      </div>
+      <a href="{% url 'create_b' %}" class="linkNo">글쓰기</a>
+      <br /><br />
+      {% for blogPost in posts %}
+      <h5>
+        <a href="{% url 'post_detail_b' blogPost.id %}" class="linkNo linkNo2"
+          >{{blogPost.title}}</a
+        >
+      </h5>
+      <h6>작성자 : {{blogPost.author}}</h6>
+      <p>{{blogPost.body}}</p>
+      <hr />
+      {% endfor %}
+
+      <!--페이지네이션-->
+      <div class="pageNo">
+        {% if posts.has_previous %}
+        <a href="?page=1">&lt;&lt;</a>
+        <a href="?page={{posts.previous_page_number}}">&lt;</a>
+        {% endif %}
+
+        <span> {{ posts.number }} / {{ posts.paginator.num_pages }} </span>
+
+        {% if posts.has_next %}
+        <a href="?page={{posts.next_page_number}}">&gt;</a>
+        <a href="?page={{posts.paginator.num_pages}}">&gt;&gt;</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
